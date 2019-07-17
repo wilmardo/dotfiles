@@ -98,9 +98,12 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
+
+# Config
 alias zshconfig="vi ~/.zshrc"
+alias config='/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro'
+
+# Kubectl
 alias k="kubectl"
 alias ka="kubectl apply"
 alias kaf="kubectl apply -f"
@@ -112,6 +115,8 @@ alias kl="kubectl logs -n"
 alias kdel="kubectl delete -n"
 alias kdelf="kubectl delete -f"
 alias ke="kubectl exec -it -n"
+
+# Git
 alias gck="git checkout"
 alias gc="git commit"
 alias gcm="git commit -m"
@@ -125,14 +130,29 @@ alias gpf="git push --force"
 alias gst="git stash"
 alias gstp="git stash pop"
 alias gco="git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo'"
+alias gsuba="git submodule add"
+function gsubdel() {
+   git submodule deinit -f "${1}" && rm -rf ".git/modules/${1}" && git rm -f "${1}"
+}
+
+# Python venv
 alias mkvenv="python3 -m venv venv && source venv/bin/activate"
 alias svenv="source venv/bin/activate"
+
+# VSCode
 alias c="code ."
+
+# Docker
 alias d="docker"
 alias dp="docker pull"
 alias dps="docker ps"
 alias dr="docker run -it"
 alias db="docker build"
+
+# Ansible
 alias a="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible"
 alias ap="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook"
-alias config='/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro'
+
+# Tools
+alias untar='tar -xzvf'
+
