@@ -6,4 +6,5 @@
 !.gitconfig
 !.tmux.conf
 !.zshrc
-
+!.env_vars
+!.zsh_functions

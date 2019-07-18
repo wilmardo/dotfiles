@@ -1,0 +1,169 @@
+# Git
+
+## Add submodule
+function gsuba {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: gsuba <giturl> <path>"
+  else
+    dirname=$(basename -s .git "${1}")
+    git submodule add "${1}" "${2}/${dirname}"
+    echo "${2}/${dirname} initialized"
+  fi
+}
+
+## Delete submodule
+function gsubdel {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: gsubdel <path>"
+  else
+    git submodule deinit -f "${1}" && rm -rf ".git/modules/${1}" && git rm -f "${1}"
+  fi
+}
+
+## Fix tracked ignore files (https://stackoverflow.com/questions/11451535/gitignore-is-ignored-by-git)
+function gfixignore {
+  require_clean_work_tree "gfixignore"
+  git rm -r --cached .
+  git add .
+  git commit -m "fix: Untracked files removed from repository"
+}
+
+# Tools
+
+## Extract archives (https://gist.github.com/aarohmankad/7c8122897bcfda2f57a67c5f84277fd5#file-extract_bash_function-sh)
+function extract {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+  else
+    if [ -f "$1" ] ; then
+      cmd=$(get_extract_cmd "${1}")
+      if [ -n "${cmd}" ]
+        echo "$1 - archive type not supported"
+      else
+        eval "${cmd}" "${1}"
+      fi
+    else
+      echo "$1 - file does not exist"
+    fi
+  fi
+}
+
+## Create directory and drop to it
+function mkdircd {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: mkdircd <path>"
+  else
+    mkdir -pv "$@" && cd "$@" || return;
+  fi
+}
+
+## Backup dir/file
+function backup {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: backup <path>"
+  else
+    cp -r --preserve "$1"{,.bak}
+  fi
+}
+
+## Search
+function whereis {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: whereis <filename>"
+  else
+    find . -name "$1*";
+  fi
+}
+
+## Setup binary from url
+function install_bin {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: install_bin <url> <binary>"
+  else
+    # Set easy to use vars
+    artifact=$(basename "${1}")
+    cmd=$(get_extract_cmd "${1}")
+
+
+    # Do all this in /tmp
+    cd /tmp || echo "No /tmp"
+    # Download archive
+    curl -LO "${1}"
+
+    # Check if artifact is archive or binary direct
+    if [ -n "${cmd}" ]
+      # Direct binary
+      
+      bin_path=${2}
+    else
+      # Extract archive
+      eval "${cmd} ${archive}"
+      # Remove archive
+      rm -f "${archive}"
+      # Find needed binary path
+      bin_path=$(find /tmp -type f -name $2 -exec realpath {} \;)
+    fi
+
+    # Make sure it is executable
+    chmod +x "${bin_path}"
+    # Move to location
+    eval "sudo mv ${bin_path} /usr/local/bin"
+  fi
+}
+
+# Helpers
+# Source: https://stackoverflow.com/a/3879077
+function require_clean_work_tree {
+  # Update the index
+  git update-index -q --ignore-submodules --refresh
+  err=0
+
+  # Disallow unstaged changes in the working tree
+  if ! git diff-files --quiet --ignore-submodules --
+  then
+      echo >&2 "cannot $1: you have unstaged changes."
+      git diff-files --name-status -r --ignore-submodules -- >&2
+      err=1
+  fi
+
+  # Disallow uncommitted changes in the index
+  if ! git diff-index --cached --quiet HEAD --ignore-submodules --
+  then
+      echo >&2 "cannot $1: your index contains uncommitted changes."
+      git diff-index --cached --name-status -r --ignore-submodules HEAD -- >&2
+      err=1
+  fi
+
+  if [ $err = 1 ]
+  then
+      echo >&2 "Please commit or stash them."
+  fi
+}
+
+function get_extract_cmd {
+  case $1 in
+    *.tar.bz2)   echo "tar xvjf"   ;;
+    *.tar.gz)    echo "tar xvzf"   ;;
+    *.tar.xz)    echo tar xvJf     ;;
+    *.lzma)      echo unlzma       ;;
+    *.bz2)       echo bunzip2      ;;
+    *.rar)       echo unrar x -ad  ;;
+    *.gz)        echo gunzip       ;;
+    *.tar)       echo tar xvf      ;;
+    *.tbz2)      echo tar xvjf     ;;
+    *.tgz)       echo tar xvzf     ;;
+    *.zip)       echo unzip        ;;
+    *.Z)         echo uncompress   ;;
+    *.7z)        echo 7z x         ;;
+    *.xz)        echo unxz         ;;
+    *.exe)       echo cabextract   ;;
+    *)           echo "" ;;
+  esac
+}
