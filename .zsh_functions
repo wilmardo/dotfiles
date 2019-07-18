@@ -40,7 +40,7 @@ function extract {
   else
     if [ -f "$1" ] ; then
       cmd=$(get_extract_cmd "${1}")
-      if [ -n "${cmd}" ]
+      if [ -n "${cmd}" ]; then
         echo "$1 - archive type not supported"
       else
         eval "${cmd}" "${1}"
@@ -98,9 +98,9 @@ function install_bin {
     curl -LO "${1}"
 
     # Check if artifact is archive or binary direct
-    if [ -n "${cmd}" ]
+    if [ -n "${cmd}" ]; then
       # Direct binary
-      
+
       bin_path=${2}
     else
       # Extract archive
