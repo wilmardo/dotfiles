@@ -12,9 +12,20 @@ ZSH_THEME="agnoster"
 export DEFAULT_USER="$(whoami)"
 
 # Import dircolor when installed
-if [ -f ${HOME}/term-config/dircolors-solarized ]; then
+if [ -f ${HOME}/term-config/dircolors-solarized/dircolors.256dark ]; then
   eval `dircolors $HOME/term-config/dircolors-solarized/dircolors.256dark`
 fi
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git kubectl)
+
+source $ZSH/oh-my-zsh.sh
+
+# Own custom shizzle
 
 # Import set of env vars
 if [ -f ${HOME}/.env_vars ]; then
@@ -30,12 +41,3 @@ fi
 if [ -f ${HOME}/.zsh_aliases ]; then
   source ${HOME}/.zsh_aliases
 fi
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git kubectl)
-
-source $ZSH/oh-my-zsh.sh
