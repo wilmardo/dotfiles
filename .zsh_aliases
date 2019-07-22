@@ -1,0 +1,83 @@
+# Config
+alias zshconfig="vi ~/.zshrc"
+alias zshalias="vi ~/.zsh_aliases"
+alias zshfunctions="vi ~/.zsh_functions"
+alias zshenvvars="vi ~/.env_vars"
+alias config="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
+alias cfg="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
+
+# Kubectl
+alias k="kubectl"
+alias ka="kubectl apply"
+alias kaf="kubectl apply -f"
+alias kga="kubectl get --all-namespaces"
+alias kgap="kubectl get --all-namespaces pods"
+alias kg="kubectl get -n"
+alias kd="kubectl describe -n"
+alias kl="kubectl logs -n"
+alias kdel="kubectl delete -n"
+alias kdelf="kubectl delete -f"
+alias ke="kubectl exec -it -n"
+
+# Git
+alias gck="git checkout"
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gcam="git commit -am"
+alias gs="git status"
+alias ga="git add"
+alias gf="git fetch"
+alias gpl="git pull --rebase"
+alias gp="git push"
+alias gpf="git push --force"
+alias gst="git stash"
+alias gstp="git stash pop"
+alias gco="git config user.email 'info@wilmardenouden.nl'  && git config user.name 'wilmardo'"
+alias gd="git diff"
+alias gr="git rebase"
+alias gl="git log"
+
+# Python venv
+alias mkvenv="python3 -m venv venv && source venv/bin/activate"
+alias svenv="source venv/bin/activate"
+
+# VSCode
+alias c="code ."
+
+# Docker
+alias d="docker"
+alias dp="docker pull"
+alias dps="docker ps"
+alias dpsa="docker ps -a -n"
+alias dr="docker run -it"
+alias db="docker build"
+alias dl="docker logs"
+alias dk="docker kill"
+
+# Ansible
+alias a="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible"
+alias ap="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook"
+
+# Tools
+alias ..="cd .."
+alias ...="cd ../../../"
+alias ....="cd ../../../../"
+alias .....="cd ../../../../"
+alias ls="ls --color=auto"
+alias ll="ls -la"
+alias l.="ls -d .* --color=auto"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias mkdir="mkdir -pv"
+alias myip="curl http://ipecho.net/plain; echo"
+alias 2Development="cd ${HOME}/Development"
+alias 2dev="cd ${HOME}/Development"
+alias rmd="rm -rf"
+alias rmdit="rm -rf"
+
+# Ubuntu update
+alias update="sudo apt update && sudo apt upgrade"
+
+# Systemctl
+alias restart="sudo systemctl restart"
