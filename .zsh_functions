@@ -30,6 +30,7 @@ function gfixignore {
   git commit -m "fix: Untracked files removed from repository"
 }
 
+
 # Tools
 
 ## Extract archives (https://gist.github.com/aarohmankad/7c8122897bcfda2f57a67c5f84277fd5#file-extract_bash_function-sh)

@@ -1,7 +1,10 @@
 # Config
 alias zshconfig="vi ~/.zshrc"
 alias zshalias="vi ~/.zsh_aliases"
+alias zshaliases="vi ~/.zsh_aliases"
+alias zshfunction="vi ~/.zsh_functions"
 alias zshfunctions="vi ~/.zsh_functions"
+alias zshenvvar="vi ~/.env_vars"
 alias zshenvvars="vi ~/.env_vars"
 alias config="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
 alias cfg="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
@@ -36,6 +39,7 @@ alias gco="git config user.email 'info@wilmardenouden.nl'  && git config user.na
 alias gd="git diff"
 alias gr="git rebase"
 alias gl="git log"
+alias gfixfilemode="sed -i 's/filemode = true/filemode = false/g' .git/config"
 
 # Python venv
 alias mkvenv="python3 -m venv venv && source venv/bin/activate"
