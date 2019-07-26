@@ -59,8 +59,10 @@ alias dl="docker logs"
 alias dk="docker kill"
 
 # Ansible
-alias a="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible"
-alias ap="docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook"
+alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:devel /bin/sh'
+alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --user=root -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest /bin/sh'
+alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible'
+alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook'
 
 # Tools
 alias ..="cd .."
@@ -79,6 +81,7 @@ alias 2Development="cd ${HOME}/Development"
 alias 2dev="cd ${HOME}/Development"
 alias rmd="rm -rf"
 alias rmdit="rm -rf"
+alias hg="history | grep"
 
 # Ubuntu update
 alias update="sudo apt update && sudo apt upgrade"
