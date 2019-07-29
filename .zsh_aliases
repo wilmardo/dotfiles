@@ -24,9 +24,9 @@ alias ke="kubectl exec -it -n"
 
 # Git
 alias gck="git checkout"
-alias gc="git commit"
-alias gcm="git commit -m"
-alias gcam="git commit -am"
+alias gc="git commit --signoff"
+alias gcm="git commit --signoff -m"
+alias gcam="git commit --signoff -am"
 alias gs="git status"
 alias ga="git add"
 alias gf="git fetch"
