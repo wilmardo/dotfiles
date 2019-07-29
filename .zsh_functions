@@ -1,7 +1,7 @@
 # Git
 
 ## Add submodule
-function gsuba {
+function gsuba() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: gsuba <giturl> <path>"
@@ -13,7 +13,7 @@ function gsuba {
 }
 
 ## Delete submodule
-function gsubdel {
+function gsubdel() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: gsubdel <path>"
@@ -23,23 +23,62 @@ function gsubdel {
 }
 
 ## Fix tracked ignore files (https://stackoverflow.com/questions/11451535/gitignore-is-ignored-by-git)
-function gfixignore {
+function gfixignore() {
   require_clean_work_tree "gfixignore"
   git rm -r --cached .
   git add .
   git commit -m "fix: Untracked files removed from repository"
 }
 
+function gauthorrewrite() {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo 'Usage: gauthorrewrite --old_email=wilmaro@intermax.nl --new_email=w.denouden@intermax.nl --new_name="Wilmar den Ouden"'
+  else
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --old_email=*)
+            export old_email="${1#*=}"
+            ;;
+            --new_email=*)
+            export new_email="${1#*=}"
+            ;;
+            --new_name=*)
+            export new_name="${1#*=}"
+            ;;
+        *)
+        printf "***************************\n"
+        printf "* Error: Invalid argument.*\n"
+        printf "***************************\n"
+        exit 1
+        esac
+        shift
+    done
+
+    git filter-branch --env-filter '
+    if [ "$GIT_COMMITTER_EMAIL" = "$old_email" ]
+    then
+        export GIT_COMMITTER_NAME="$new_name"
+        export GIT_COMMITTER_EMAIL="$new_email"
+    fi
+    if [ "$GIT_AUTHOR_EMAIL" = "$old_email" ]
+    then
+        export GIT_AUTHOR_NAME="$new_name"
+        export GIT_AUTHOR_EMAIL="$new_email"
+    fi
+    ' --tag-name-filter cat -- --branches --tags
+  fi
+}
 
 # Tools
 
 ## Extract archives (https://gist.github.com/aarohmankad/7c8122897bcfda2f57a67c5f84277fd5#file-extract_bash_function-sh)
-function extract {
+function extract() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
   else
-    if [ -f "$1" ] ; then
+    if [ -f "$1" ]; then
       cmd=$(get_extract_cmd "${1}")
       if [ -n "${cmd}" ]; then
         echo "$1 - archive type not supported"
@@ -53,17 +92,17 @@ function extract {
 }
 
 ## Create directory and drop to it
-function mkdircd {
+function mkdircd() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: mkdircd <path>"
   else
-    mkdir -pv "$@" && cd "$@" || return;
+    mkdir -pv "$@" && cd "$@" || return
   fi
 }
 
 ## Backup dir/file
-function backup {
+function backup() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: backup <path>"
@@ -73,17 +112,17 @@ function backup {
 }
 
 ## Search
-function whereis {
+function whereis() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: whereis <filename>"
   else
-    find . -name "$1*";
+    find . -name "$1*"
   fi
 }
 
 ## Setup binary from url
-function install_bin {
+function install_bin() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: install_bin <url> <binary>"
@@ -91,7 +130,6 @@ function install_bin {
     # Set easy to use vars
     artifact=$(basename "${1}")
     cmd=$(get_extract_cmd "${1}")
-
 
     # Do all this in /tmp
     cd /tmp || echo "No /tmp"
@@ -121,50 +159,47 @@ function install_bin {
 
 # Helpers
 # Source: https://stackoverflow.com/a/3879077
-function require_clean_work_tree {
+function require_clean_work_tree() {
   # Update the index
   git update-index -q --ignore-submodules --refresh
   err=0
 
   # Disallow unstaged changes in the working tree
-  if ! git diff-files --quiet --ignore-submodules --
-  then
-      echo >&2 "cannot $1: you have unstaged changes."
-      git diff-files --name-status -r --ignore-submodules -- >&2
-      err=1
+  if ! git diff-files --quiet --ignore-submodules --; then
+    echo >&2 "cannot $1: you have unstaged changes."
+    git diff-files --name-status -r --ignore-submodules -- >&2
+    err=1
   fi
 
   # Disallow uncommitted changes in the index
-  if ! git diff-index --cached --quiet HEAD --ignore-submodules --
-  then
-      echo >&2 "cannot $1: your index contains uncommitted changes."
-      git diff-index --cached --name-status -r --ignore-submodules HEAD -- >&2
-      err=1
+  if ! git diff-index --cached --quiet HEAD --ignore-submodules --; then
+    echo >&2 "cannot $1: your index contains uncommitted changes."
+    git diff-index --cached --name-status -r --ignore-submodules HEAD -- >&2
+    err=1
   fi
 
-  if [ $err = 1 ]
-  then
-      echo >&2 "Please commit or stash them."
+  if [ $err = 1 ]; then
+    echo >&2 "Please commit or stash them."
   fi
 }
 
-function get_extract_cmd {
+function get_extract_cmd() {
   case $1 in
-    *.tar.bz2)   echo "tar xvjf"   ;;
-    *.tar.gz)    echo "tar xvzf"   ;;
-    *.tar.xz)    echo tar xvJf     ;;
-    *.lzma)      echo unlzma       ;;
-    *.bz2)       echo bunzip2      ;;
-    *.rar)       echo unrar x -ad  ;;
-    *.gz)        echo gunzip       ;;
-    *.tar)       echo tar xvf      ;;
-    *.tbz2)      echo tar xvjf     ;;
-    *.tgz)       echo tar xvzf     ;;
-    *.zip)       echo unzip        ;;
-    *.Z)         echo uncompress   ;;
-    *.7z)        echo 7z x         ;;
-    *.xz)        echo unxz         ;;
-    *.exe)       echo cabextract   ;;
-    *)           echo "" ;;
+  *.tar.bz2) echo "tar xvjf" ;;
+  *.tar.gz) echo "tar xvzf" ;;
+  *.tar.xz) echo tar xvJf ;;
+  *.lzma) echo unlzma ;;
+  *.bz2) echo bunzip2 ;;
+  *.rar) echo unrar x -ad ;;
+  *.gz) echo gunzip ;;
+  *.tar) echo tar xvf ;;
+  *.tbz2) echo tar xvjf ;;
+  *.tgz) echo tar xvzf ;;
+  *.zip) echo unzip ;;
+  *.Z) echo uncompress ;;
+  *.7z) echo 7z x ;;
+  *.xz) echo unxz ;;
+  *.exe) echo cabextract ;;
+  *) echo "" ;;
   esac
 }
