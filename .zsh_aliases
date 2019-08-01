@@ -21,6 +21,9 @@ alias kl="kubectl logs -n"
 alias kdel="kubectl delete -n"
 alias kdelf="kubectl delete -f"
 alias ke="kubectl exec -it -n"
+alias kcl="kubectl config get-contexts -o name"
+alias kcu="kubectl config use-context"
+alias kck="export KUBECONFIG=$(kind get kubeconfig-path)"
 
 # Git
 alias gck="git checkout"
@@ -54,9 +57,16 @@ alias dp="docker pull"
 alias dps="docker ps"
 alias dpsa="docker ps -a -n"
 alias dr="docker run -it"
+alias de="docker exec -it"
 alias db="docker build"
 alias dl="docker logs"
 alias dk="docker kill"
+
+# Docker compose
+alias dc="docker-compose"
+alias dcu="docker-compose up"
+alias dcd="docker-compose down"
+alias dcp="docker-compose pull"
 
 # Ansible
 alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:devel /bin/sh'
@@ -66,8 +76,8 @@ alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECUL
 
 # Tools
 alias ..="cd .."
-alias ...="cd ../../../"
-alias ....="cd ../../../../"
+alias ...="cd ../../"
+alias ....="cd ../../../"
 alias .....="cd ../../../../"
 alias ls="ls --color=auto"
 alias ll="ls -la"
