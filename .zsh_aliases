@@ -6,8 +6,8 @@ alias zshfunction="vi ~/.zsh_functions"
 alias zshfunctions="vi ~/.zsh_functions"
 alias zshenvvar="vi ~/.env_vars"
 alias zshenvvars="vi ~/.env_vars"
-alias config="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
-alias cfg="/usr/bin/git --git-dir=/c/Users/wilmaro/.cfg/ --work-tree=/c/Users/wilmaro"
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 # Kubectl
 alias k="kubectl"
