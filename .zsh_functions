@@ -1,7 +1,7 @@
 # Git
 
 ## Add submodule
-function gsuba() {
+gsuba() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: gsuba <giturl> <path>"
@@ -13,7 +13,7 @@ function gsuba() {
 }
 
 ## Delete submodule
-function gsubdel() {
+gsubdel() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: gsubdel <path>"
@@ -23,14 +23,14 @@ function gsubdel() {
 }
 
 ## Fix tracked ignore files (https://stackoverflow.com/questions/11451535/gitignore-is-ignored-by-git)
-function gfixignore() {
+gfixignore() {
   require_clean_work_tree "gfixignore"
   git rm -r --cached .
   git add .
   git commit -m "fix: Untracked files removed from repository"
 }
 
-function gauthorrewrite() {
+gauthorrewrite() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo 'Usage: gauthorrewrite --old_email=wilmaro@intermax.nl --new_email=w.denouden@intermax.nl --new_name="Wilmar den Ouden"'
@@ -73,14 +73,16 @@ function gauthorrewrite() {
 # Tools
 
 ## Extract archives (https://gist.github.com/aarohmankad/7c8122897bcfda2f57a67c5f84277fd5#file-extract_bash_function-sh)
-function extract() {
+extract() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
   else
     if [ -f "$1" ]; then
       cmd=$(get_extract_cmd "${1}")
-      if [ -n "${cmd}" ]; then
+      if ! [ -x $( command -v "${cmd}") ]; then
+	echo "$cmd"
+	echo "$( command -v "${cmd}")"
         echo "$1 - archive type not supported"
       else
         eval "${cmd}" "${1}"
@@ -92,7 +94,7 @@ function extract() {
 }
 
 ## Create directory and drop to it
-function mkdircd() {
+mkdircd() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: mkdircd <path>"
@@ -102,7 +104,7 @@ function mkdircd() {
 }
 
 ## Backup dir/file
-function backup() {
+backup() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: backup <path>"
@@ -112,7 +114,7 @@ function backup() {
 }
 
 ## Search
-function whereis() {
+whereis() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: whereis <filename>"
@@ -122,7 +124,7 @@ function whereis() {
 }
 
 ## Setup binary from url
-function install_bin() {
+install_bin() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: install_bin <url> <binary>"
@@ -137,15 +139,18 @@ function install_bin() {
     curl -LO "${1}"
 
     # Check if artifact is archive or binary direct
-    if [ -n "${cmd}" ]; then
+    echo "${artifact##*.}" 	
+    if [ -x "${artifact##*.}" ]; then
       # Direct binary
-
+      echo "Binary directly downloaded"
       bin_path=${2}
     else
       # Extract archive
-      eval "${cmd} ${archive}"
+      echo "Extracting archive ${artifact}"
+      eval "${cmd} ${artifact}"
       # Remove archive
-      rm -f "${archive}"
+      echo "Removing archive ${artifact}"
+      rm -f "${artifact}"
       # Find needed binary path
       bin_path=$(find /tmp -type f -name $2 -exec realpath {} \;)
     fi
@@ -159,7 +164,7 @@ function install_bin() {
 
 # Helpers
 # Source: https://stackoverflow.com/a/3879077
-function require_clean_work_tree() {
+require_clean_work_tree() {
   # Update the index
   git update-index -q --ignore-submodules --refresh
   err=0
@@ -183,10 +188,10 @@ function require_clean_work_tree() {
   fi
 }
 
-function get_extract_cmd() {
+get_extract_cmd() {
   case $1 in
-  *.tar.bz2) echo "tar xvjf" ;;
-  *.tar.gz) echo "tar xvzf" ;;
+  *.tar.bz2) echo tar xvjf ;;
+  *.tar.gz) echo tar xvzf ;;
   *.tar.xz) echo tar xvJf ;;
   *.lzma) echo unlzma ;;
   *.bz2) echo bunzip2 ;;
