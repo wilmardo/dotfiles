@@ -1,11 +1,15 @@
 # Config
 alias zshconfig="vi ~/.zshrc"
+alias zsha="vi ~/.zsh_aliases"
 alias zshalias="vi ~/.zsh_aliases"
 alias zshaliases="vi ~/.zsh_aliases"
+alias zshf="vi ~/.zsh_functions"
 alias zshfunction="vi ~/.zsh_functions"
 alias zshfunctions="vi ~/.zsh_functions"
+alias zshenv="vi ~/.env_vars"
 alias zshenvvar="vi ~/.env_vars"
 alias zshenvvars="vi ~/.env_vars"
+alias szsh="source ~/.zshrc"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
@@ -92,9 +96,13 @@ alias 2dev="cd ${HOME}/Development"
 alias rmd="rm -rf"
 alias rmdit="rm -rf"
 alias hg="history | grep"
+alias watch="watch "
 
 # Ubuntu update
 alias update="sudo apt update && sudo apt upgrade"
 
 # Systemctl
 alias restart="sudo systemctl restart"
+
+# Esphome
+# alias esphome="docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome"
