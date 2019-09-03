@@ -21,7 +21,9 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git kubectl)
+
+# Setup velero: mkdir -p ~/.oh-my-zsh/custom/plugins/velero && velero completion zsh > ~/.oh-my-zsh/custom/plugins/velero/velero.plugin.zsh
+plugins=(git kubectl helm velero)
 
 source $ZSH/oh-my-zsh.sh
 
