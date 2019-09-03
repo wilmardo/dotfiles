@@ -134,16 +134,15 @@ install_bin() {
     cmd=$(get_extract_cmd "${1}")
 
     # Do all this in /tmp
-    cd /tmp || echo "No /tmp"
+    pushd /tmp > /dev/null || echo "No /tmp"
     # Download archive
     curl -LO "${1}"
 
     # Check if artifact is archive or binary direct
-    echo "${artifact##*.}" 	
-    if [ -x "${artifact##*.}" ]; then
+    if [[ $artifact != *"."* ]]; then
       # Direct binary
       echo "Binary directly downloaded"
-      bin_path=${2}
+      bin_path=${artifact}
     else
       # Extract archive
       echo "Extracting archive ${artifact}"
@@ -158,7 +157,29 @@ install_bin() {
     # Make sure it is executable
     chmod +x "${bin_path}"
     # Move to location
-    eval "sudo mv ${bin_path} /usr/local/bin"
+    eval "sudo mv ${bin_path} /usr/local/bin/${2}"
+
+    # Return to dir to no change parent shell to /tmp
+    popd > /dev/null
+  fi
+}
+
+sshkey_remove() {
+  if [ -z "$1" ]; then
+     # display usage if no parameters given
+     echo "Usage: sshkey_remove <ip/hostname/x.x.x.{0,10}>"
+  else
+    echo $1; echo $2
+    if [[ $1 == *","* ]]; then
+       # Templated var passed
+       $range=$(echo $1 | grep -o "[0-9]*,[0-9]*")
+       # https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash
+       seq=(${range//,/ })
+       # https://stackoverflow.com/questions/169511/how-do-i-iterate-over-a-range-of-numbers-defined-by-variables-in-bash
+       for i in $(seq $seq[0] $seq[1]); do echo $i; done
+    else
+      ssh-keygen -R $1
+    fi
   fi
 }
 
