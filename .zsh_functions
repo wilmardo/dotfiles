@@ -27,7 +27,7 @@ gfixignore() {
   require_clean_work_tree "gfixignore"
   git rm -r --cached .
   git add .
-  git commit -m "fix: Untracked files removed from repository"
+  git commit --signoff -m "fix: Untracked files removed from repository"
 }
 
 gauthorrewrite() {
@@ -161,6 +161,25 @@ install_bin() {
 
     # Return to dir to no change parent shell to /tmp
     popd > /dev/null
+  fi
+}
+
+uninstall_bin() {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: uninstall_bin <binary>"
+  else
+    sudo rm /usr/local/bin/${1}
+  fi
+}
+
+upgrade_bin() {
+  if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: upgrade_bin <url> <binary>"
+  else
+    uninstall_bin $2
+    install_bin $1 $2
   fi
 }
 
