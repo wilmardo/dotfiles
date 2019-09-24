@@ -34,13 +34,15 @@ alias kdelf="kubectl delete -f"
 alias ke="kubectl exec -it -n"
 alias kcl="kubectl config get-contexts -o name"
 alias kcu="kubectl config use-context"
+
+# Kind
 alias kck="export KUBECONFIG=$(kind get kubeconfig-path)"
 
 # Git
 alias gck="git checkout"
 alias gc="git commit --signoff"
-alias gcm="git commit --signoff -m"
-alias gcam="git commit --signoff -am"
+alias gcm="git commit --signoff"
+alias gcam="git commit --signoff -a"
 alias gs="git status"
 alias ga="git add"
 alias gf="git fetch"
@@ -49,7 +51,7 @@ alias gp="git push"
 alias gpf="git push --force"
 alias gst="git stash"
 alias gstp="git stash pop"
-alias gco="git config user.email 'info@wilmardenouden.nl'  && git config user.name 'wilmardo'"
+alias gco="git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo'"
 alias gd="git diff"
 alias gr="git rebase"
 alias gl="git log"
@@ -85,7 +87,7 @@ alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --
 alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible'
 alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook'
 
-# Tools
+# Shell
 alias ..="cd .."
 alias ...="cd ../../"
 alias ....="cd ../../../"

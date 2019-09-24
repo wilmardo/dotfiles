@@ -4,6 +4,7 @@
 # Except dotfiles
 !.gitignore
 !.gitconfig
+!.gitmessage
 !.tmux.conf
 !.zshrc
 !.env_vars

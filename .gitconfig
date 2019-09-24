@@ -1,3 +1,5 @@
 [user]
 	email = w.denouden@intermax.nl
 	name = wilmaro
+[commit]
+	template = ~/.gitmessage
