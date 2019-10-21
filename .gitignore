@@ -1,5 +1,5 @@
 # Ignore everything
-*
+/*
 
 # Except dotfiles
 !.gitignore
@@ -10,3 +10,6 @@
 !.env_vars
 !.zsh_functions
 !.zsh_aliases
+!.ssh/
+.ssh/*
+!.ssh/config
