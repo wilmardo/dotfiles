@@ -41,8 +41,9 @@ alias kck="export KUBECONFIG=$(kind get kubeconfig-path)"
 # Git
 alias gck="git checkout"
 alias gc="git commit --signoff"
-alias gcm="git commit --signoff"
-alias gcam="git commit --signoff -a"
+alias gca="git commit --signoff -a"
+alias gcm="git commit --signoff -m"
+alias gcam="git commit --signoff -am"
 alias gs="git status"
 alias ga="git add"
 alias gf="git fetch"
@@ -84,8 +85,8 @@ alias dcp="docker-compose pull"
 # Ansible
 alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:devel /bin/sh'
 alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --user=root -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest /bin/sh'
-alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible'
-alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:latest ansible-playbook'
+alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible'
+alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible-playbook'
 
 # Shell
 alias ..="cd .."
