@@ -59,7 +59,7 @@ alias gl="git log"
 alias gfixfilemode="sed -i 's/filemode = true/filemode = false/g' .git/config"
 
 # Python venv
-alias mkvenv="python3 -m venv venv && source venv/bin/activate"
+alias mkvenv="python3.7 -m venv venv && source venv/bin/activate"
 alias svenv="source venv/bin/activate"
 
 # VSCode
@@ -71,6 +71,8 @@ alias dp="docker pull"
 alias dps="docker ps"
 alias dpsa="docker ps -a -n"
 alias dr="docker run -it"
+alias drs="docker run -it --cap-add SYS_PTRACE --user root --entrypoint /bin/sh"
+alias drv="docker run -it -v "$(pwd)":/$(basename ~+) -w /$(basename ~+)"
 alias de="docker exec -it"
 alias db="docker build"
 alias dl="docker logs"
@@ -87,6 +89,10 @@ alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLEC
 alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --user=root -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest /bin/sh'
 alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible'
 alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible-playbook'
+
+# Tmux
+alias t="tmux"
+alias tat="tmux a -t"
 
 # Shell
 alias ..="cd .."
@@ -108,8 +114,11 @@ alias rmdit="rm -rf"
 alias hg="history | grep"
 alias watch="watch "
 
+# Convert
+alias yamltojson="python -c 'import json, sys, yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)'"
+
 # Ubuntu update
-alias update="sudo apt update && sudo apt upgrade"
+alias update="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"
 
 # Systemctl
 alias restart="sudo systemctl restart"

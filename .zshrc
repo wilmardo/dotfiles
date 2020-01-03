@@ -1,8 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/go/bin:$PATH"
+export PATH="/usr/local/go/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+# Needed for WSL vagrant
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
