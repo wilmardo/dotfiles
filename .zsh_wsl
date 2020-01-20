@@ -1,0 +1,13 @@
+# Docker settings
+export DOCKER_HOST=tcp://172.20.1.44
+
+# Needed for WSL vagrant
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+
+# Windows clipboard
+export CLIPBOARD="clip.exe"
+
+# Import dircolor when installed
+if [ -f ${HOME}/term-config/dircolors-solarized/dircolors.256dark ]; then
+  eval `dircolors $HOME/term-config/dircolors-solarized/dircolors.256dark`
+fi

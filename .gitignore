@@ -6,10 +6,7 @@
 !.gitconfig
 !.gitmessage
 !.tmux.conf
-!.zshrc
-!.env_vars
-!.zsh_functions
-!.zsh_aliases
 !.ssh/
 .ssh/*
 !.ssh/config
+!.zsh*

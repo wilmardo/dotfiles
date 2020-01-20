@@ -1,11 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="/usr/local/go/bin:/c/Program Files/Oracle/VirtualBox:$PATH"
+export PATH="/usr/local/go/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# Needed for WSL vagrant
-export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -14,10 +11,8 @@ export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 ZSH_THEME="agnoster"
 export DEFAULT_USER="$(whoami)"
 
-# Import dircolor when installed
-if [ -f ${HOME}/term-config/dircolors-solarized/dircolors.256dark ]; then
-  eval `dircolors $HOME/term-config/dircolors-solarized/dircolors.256dark`
-fi
+# Move history to non zsh_ prefix for easier gitignore
+HISTFILE=".zhistory"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -33,8 +28,12 @@ source $ZSH/oh-my-zsh.sh
 # Own custom shizzle
 
 # Import set of env vars
-if [ -f ${HOME}/.env_vars ]; then
-  source ${HOME}/.env_vars
+if [ -f ${HOME}/.zsh_env_vars ]; then
+  source ${HOME}/.zsh_env_vars
+fi
+# Import WSL overrides
+if "uname -r | grep Microsoft"; then
+  source ${HOME}/.zsh_wls
 fi
 
 # Import functions
