@@ -32,8 +32,8 @@ if [ -f ${HOME}/.zsh_env_vars ]; then
   source ${HOME}/.zsh_env_vars
 fi
 # Import WSL overrides
-if "uname -r | grep Microsoft"; then
-  source ${HOME}/.zsh_wls
+if uname -r | grep -q Microsoft; then
+  source ${HOME}/.zsh_wsl
 fi
 
 # Import functions
