@@ -12,7 +12,7 @@ ZSH_THEME="agnoster"
 export DEFAULT_USER="$(whoami)"
 
 # Move history to non zsh_ prefix for easier gitignore
-HISTFILE=".zhistory"
+HISTFILE="$HOME/.zhistory"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
