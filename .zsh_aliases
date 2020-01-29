@@ -1,88 +1,88 @@
 # Config
-alias zshc="vi ~/.zshrc"
-alias zshconfig="vi ~/.zshrc"
-alias zsha="vi ~/.zsh_aliases"
-alias zshalias="vi ~/.zsh_aliases"
-alias zshaliases="vi ~/.zsh_aliases"
-alias zshf="vi ~/.zsh_functions"
-alias zshfunction="vi ~/.zsh_functions"
-alias zshfunctions="vi ~/.zsh_functions"
-alias zshenv="vi ~/.env_vars"
-alias zshenvvar="vi ~/.env_vars"
-alias zshenvvars="vi ~/.env_vars"
-alias szsh="source ~/.zshrc"
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias zshc='vi ~/.zshrc'
+alias zshconfig='vi ~/.zshrc'
+alias zsha='vi ~/.zsh_aliases'
+alias zshalias='vi ~/.zsh_aliases'
+alias zshaliases='vi ~/.zsh_aliases'
+alias zshf='vi ~/.zsh_functions'
+alias zshfunction='vi ~/.zsh_functions'
+alias zshfunctions='vi ~/.zsh_functions'
+alias zshenv='vi ~/.env_vars'
+alias zshenvvar='vi ~/.env_vars'
+alias zshenvvars='vi ~/.env_vars'
+alias szsh='source ~/.zshrc'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Kubectl
-alias k="kubectl"
-alias ka="kubectl apply"
-alias kaf="kubectl apply -f"
-alias kga="kubectl get --all-namespaces"
-alias kgap="kubectl get --all-namespaces pods"
-alias kg="kubectl get -n"
-alias kt="kubectl top -n"
-alias kta="kubectl top --all-namespaces"
-alias ktap="kubectl top pods --all-namespaces"
-alias ktn="kubectl top nodes"
-alias kt="kubectl top -n"
-alias kg="kubectl get -n"
-alias kd="kubectl describe -n"
-alias kl="kubectl logs -n"
-alias kdel="kubectl delete -n"
-alias kdelf="kubectl delete -f"
-alias ke="kubectl exec -it -n"
-alias kcl="kubectl config get-contexts -o name"
-alias kcu="kubectl config use-context"
+alias k='kubectl'
+alias ka='kubectl apply'
+alias kaf='kubectl apply -f'
+alias kga='kubectl get --all-namespaces'
+alias kgap='kubectl get --all-namespaces pods'
+alias kg='kubectl get -n'
+alias kt='kubectl top -n'
+alias kta='kubectl top --all-namespaces'
+alias ktap='kubectl top pods --all-namespaces'
+alias ktn='kubectl top nodes'
+alias kt='kubectl top -n'
+alias kg='kubectl get -n'
+alias kd='kubectl describe -n'
+alias kl='kubectl logs -n'
+alias kdel='kubectl delete -n'
+alias kdelf='kubectl delete -f'
+alias ke='kubectl exec -it -n'
+alias kcl='kubectl config get-contexts -o name'
+alias kcu='kubectl config use-context'
 
 # Kind
-alias kck="export KUBECONFIG=$(kind get kubeconfig-path)"
+alias kck='export KUBECONFIG=$(kind get kubeconfig-path)'
 
 # Git
-alias gck="git checkout"
-alias gc="git commit --signoff"
-alias gca="git commit --signoff -a"
-alias gcm="git commit --signoff -m"
-alias gcam="git commit --signoff -am"
-alias gs="git status"
-alias ga="git add"
-alias gf="git fetch"
-alias gpl="git pull --rebase"
-alias gp="git push"
-alias gpf="git push --force"
-alias gst="git stash"
-alias gstp="git stash pop"
-alias gco="git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo'"
-alias gd="git diff"
-alias gr="git rebase"
-alias gl="git log"
-alias gfixfilemode="sed -i 's/filemode = true/filemode = false/g' .git/config"
+alias gck='git checkout'
+alias gc='git commit --signoff'
+alias gca='git commit --signoff -a'
+alias gcm='git commit --signoff -m'
+alias gcam='git commit --signoff -am'
+alias gs='git status'
+alias ga='git add'
+alias gf='git fetch'
+alias gpl='git pull --rebase'
+alias gp='git push'
+alias gpf='git push --force'
+alias gst='git stash'
+alias gstp='git stash pop'
+alias gco='git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo''
+alias gd='git diff'
+alias gr='git rebase'
+alias gl='git log'
+alias gfixfilemode='sed -i "s/filemode = true/filemode = false/g" .git/config'
 
 # Python venv
-alias mkvenv="python3.7 -m venv venv && source venv/bin/activate"
-alias svenv="source venv/bin/activate"
+alias mkvenv='python3.7 -m venv venv && source venv/bin/activate'
+alias svenv='source venv/bin/activate'
 
 # VSCode
-alias c="code ."
+alias c='code .'
 
 # Docker
-alias d="docker"
-alias dp="docker pull"
-alias dps="docker ps"
-alias dpsa="docker ps -a -n"
-alias dr="docker run -it"
-alias drs="docker run -it --cap-add SYS_PTRACE --user root --entrypoint /bin/sh"
-alias drv="docker run -it -v "$(pwd)":/$(basename ~+) -w /$(basename ~+)"
-alias de="docker exec -it"
-alias db="docker build"
-alias dl="docker logs"
-alias dk="docker kill"
+alias d='docker'
+alias dp='docker pull'
+alias dps='docker ps'
+alias dpsa='docker ps -a -n'
+alias dr='docker run -it'
+alias drs='docker run -it --cap-add SYS_PTRACE --user root --entrypoint /bin/sh'
+alias drv='docker run -it -v '$(pwd)':/$(basename ~+) -w /$(basename ~+)'
+alias de='docker exec -it'
+alias db='docker build'
+alias dl='docker logs'
+alias dk='docker kill'
 
 # Docker compose
-alias dc="docker-compose"
-alias dcu="docker-compose up"
-alias dcd="docker-compose down"
-alias dcp="docker-compose pull"
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias dcp='docker-compose pull'
 
 # Ansible
 alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:devel /bin/sh'
@@ -91,37 +91,37 @@ alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE
 alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible-playbook'
 
 # Tmux
-alias t="tmux"
-alias tat="tmux a -t"
+alias t='tmux'
+alias tat='tmux a -t'
 
 # Shell
-alias ..="cd .."
-alias ...="cd ../../"
-alias ....="cd ../../../"
-alias .....="cd ../../../../"
-alias ls="ls --color=auto"
-alias ll="ls -la"
-alias l.="ls -d .* --color=auto"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias mkdir="mkdir -pv"
-alias myip="curl http://ipecho.net/plain; echo"
-alias 2Development="cd ${HOME}/Development"
-alias 2dev="cd ${HOME}/Development"
-alias rmd="rm -rf"
-alias rmdit="rm -rf"
-alias hg="history | grep"
-alias watch="watch "
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ls='ls --color=auto'
+alias ll='ls -la'
+alias l.='ls -d .* --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias mkdir='mkdir -pv'
+alias myip='curl http://ipecho.net/plain; echo'
+alias 2Development='cd ${HOME}/Development'
+alias 2dev='cd ${HOME}/Development'
+alias rmd='rm -rf'
+alias rmdit='rm -rf'
+alias hg='history | grep'
+alias watch='watch '
 
 # Convert
-alias yamltojson="python -c 'import json, sys, yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)'"
+alias yamltojson='python -c "import json, sys, yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)"'
 
 # Ubuntu update
-alias update="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"
+alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 
 # Systemctl
-alias restart="sudo systemctl restart"
+alias restart='sudo systemctl restart'
 
 # Esphome
-# alias esphome="docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome"
+# alias esphome='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
