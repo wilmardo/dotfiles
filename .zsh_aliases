@@ -59,7 +59,7 @@ alias gl='git log'
 alias gfixfilemode='sed -i "s/filemode = true/filemode = false/g" .git/config'
 
 # Python venv
-alias mkvenv='python3.7 -m venv venv && source venv/bin/activate'
+alias mkvenv='python3.8 -m venv venv && source venv/bin/activate'
 alias svenv='source venv/bin/activate'
 
 # VSCode
