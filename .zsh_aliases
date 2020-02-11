@@ -90,6 +90,9 @@ alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --
 alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible'
 alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible-playbook'
 
+# Sysdig
+alias sysdig='docker run -it --privileged -v /var/run/docker.sock:/host/var/run/docker.sock -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro sysdig/sysdig'
+
 # Tmux
 alias t='tmux'
 alias tat='tmux a -t'
