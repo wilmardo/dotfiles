@@ -146,12 +146,12 @@ install_bin() {
     else
       # Extract archive
       echo "Extracting archive ${artifact}"
-      eval "${cmd} ${artifact}"
+      archive_files=$(eval "${cmd} ${artifact}")
       # Remove archive
       echo "Removing archive ${artifact}"
       rm -f "${artifact}"
       # Find needed binary path
-      bin_path=$(find /tmp -type f -name $2 -exec realpath {} \;)
+      bin_path=$(echo $archive_files | grep -P '.*helm$')
     fi
 
     # Make sure it is executable
