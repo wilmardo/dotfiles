@@ -63,7 +63,11 @@ alias mkvenv='python3.8 -m venv venv && source venv/bin/activate'
 alias svenv='source venv/bin/activate'
 
 # VSCode
-alias c='code .'
+if [ -x "$(command -v code)" ]; then
+  alias c='code .'
+elif [ -x "$(command -v code-insiders)" ]; then
+  alias c='code-insiders .'
+fi
 
 # Docker
 alias d='docker'
@@ -127,4 +131,4 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-# alias esphome='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
+alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome'

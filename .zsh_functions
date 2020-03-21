@@ -150,8 +150,8 @@ install_bin() {
       # Remove archive
       echo "Removing archive ${artifact}"
       rm -f "${artifact}"
-      # Find needed binary path
-      bin_path=$(echo $archive_files | grep -P '.*helm$')
+      # Find needed binary path, regex matches on last path so helm/helm matches but helm/README.md does not
+      bin_path=$(echo $archive_files | grep -P ".*${2}$")
     fi
 
     # Make sure it is executable
