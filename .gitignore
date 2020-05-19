@@ -10,4 +10,5 @@
 !.ssh/
 .ssh/*
 !.ssh/config
+!.xbindkeysrc
 !.zsh*
