@@ -5,6 +5,7 @@
 !.gitignore
 !.gitconfig
 !.gitmessage
+!.gitignore_global
 !.tmux.conf
 !.ssh/
 .ssh/*

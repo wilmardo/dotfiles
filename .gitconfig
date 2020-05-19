@@ -3,3 +3,5 @@
 	name = wilmaro
 [commit]
 	template = ~/.gitmessage
+[core]
+	excludesfile = ~/.global-gitignore
