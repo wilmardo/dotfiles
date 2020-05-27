@@ -132,3 +132,4 @@ alias restart='sudo systemctl restart'
 
 # Esphome
 alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome'
+alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
