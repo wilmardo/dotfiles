@@ -54,6 +54,7 @@ alias gst='git stash'
 alias gstp='git stash pop'
 alias gco='git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo''
 alias gd='git diff'
+alias gds='git diff --staged'
 alias gr='git rebase'
 alias gl='git log'
 alias gfixfilemode='sed -i "s/filemode = true/filemode = false/g" .git/config'
@@ -71,7 +72,8 @@ fi
 
 # Docker
 alias d='docker'
-alias dp='docker pull'
+alias dpl='docker pull'
+alias dph='docker push'
 alias dps='docker ps'
 alias dpsa='docker ps -a -n'
 alias dr='docker run -it'
@@ -81,6 +83,7 @@ alias de='docker exec -it'
 alias db='docker build'
 alias dl='docker logs'
 alias dk='docker kill'
+alias dka='docker stop $(docker ps -a -q)'
 
 # Docker compose
 alias dc='docker-compose'
@@ -133,3 +136,8 @@ alias restart='sudo systemctl restart'
 # Esphome
 alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome'
 alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
+
+# Webdev tools
+alias composer='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html -e COMPOSER_MEMORY_LIMIT=-1 --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
+alias npm='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html  --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest npm'
+alias php='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:7.4.7'
