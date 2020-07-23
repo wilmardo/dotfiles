@@ -135,10 +135,10 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome'
-alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
+alias esphome='docker run --rm --init -v $(pwd):/config -it esphome/esphome'
+alias esphomeu='docker run --rm --init -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
 
 # Webdev tools
-alias composer='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html -e COMPOSER_MEMORY_LIMIT=-1 --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
-alias npm='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html  --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest npm'
-alias php='docker run -it --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:7.4.7'
+alias composer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
+alias npm='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html  --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest'
+alias php='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:7.4.7'
