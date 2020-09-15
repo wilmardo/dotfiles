@@ -136,8 +136,8 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-alias esphome='docker run --rm --init -v $(pwd):/config -it esphome/esphome'
-alias esphomeu='docker run --rm --init -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome'
+alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:1.15.1'
+alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:1.15.1'
 
 # Webdev tools
 alias composer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
