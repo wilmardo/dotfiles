@@ -93,10 +93,11 @@ alias dcd='docker-compose down'
 alias dcp='docker-compose pull'
 
 # Ansible
-alias base='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/ansible-base:devel /bin/sh'
-alias strawberry='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) --user=root -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest /bin/sh'
-alias a='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible'
-alias ap='docker run -it -v $(pwd):/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule docker-registry.intermax.nl/awx/strawberry-state:latest ansible-playbook'
+alias a='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 ansible'
+alias ap='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 ansible-playbook'
+# --net=host is for localhost docker access
+alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 molecule'
+
 
 # Sysdig
 alias sysdig='docker run -it --privileged -v /var/run/docker.sock:/host/var/run/docker.sock -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro sysdig/sysdig'
