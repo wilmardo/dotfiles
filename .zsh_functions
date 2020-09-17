@@ -164,6 +164,7 @@ install_bin() {
   fi
 }
 
+## Remove user installed binary
 uninstall_bin() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
@@ -173,16 +174,8 @@ uninstall_bin() {
   fi
 }
 
-upgrade_bin() {
-  if [ -z "$1" ]; then
-    # display usage if no parameters given
-    echo "Usage: upgrade_bin <url> <binary>"
-  else
-    uninstall_bin $2
-    install_bin $1 $2
-  fi
-}
 
+## Remove sshkey from sshkey file
 sshkey_remove() {
   if [ -z "$1" ]; then
      # display usage if no parameters given
@@ -199,6 +192,16 @@ sshkey_remove() {
     else
       ssh-keygen -R $1
     fi
+  fi
+}
+
+## base64 encode string instead of file
+base64e() {
+  if [ -z "$1" ]; then
+     # display usage if no parameters given
+     echo "Usage: base64e <string to encode>"
+  else
+    echo "$1" | base64
   fi
 }
 
