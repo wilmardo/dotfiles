@@ -50,6 +50,7 @@ alias gf='git fetch'
 alias gpl='git pull --rebase'
 alias gp='git push'
 alias gpmr='git push -o merge_request.create -o merge_request.remove_source_branch'
+alias gpmra='git push -o merge_request.create -o merge_request.remove_source_branch -o merge_request.merge_when_pipeline_succeeds'
 alias gpf='git push --force'
 alias gst='git stash'
 alias gstp='git stash pop'
@@ -93,10 +94,11 @@ alias dcd='docker-compose down'
 alias dcp='docker-compose pull'
 
 # Ansible
-alias a='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 ansible'
-alias ap='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 ansible-playbook'
+alias a='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible'
+alias ap='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible-playbook'
+alias av='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible-vault'
 # --net=host is for localhost docker access
-alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.9 molecule'
+alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 molecule'
 
 
 # Sysdig
@@ -141,5 +143,6 @@ alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esph
 
 # Webdev tools
 alias composer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
-alias npm='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html  --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest'
+alias npm='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest'
 alias php='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:7.4.7'
+alias nuxt='docker run -it -p 3000:3000 --env HOST=0.0.0.0 --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges --name nuxt eu.gcr.io/intermax-group-262516/tools/npm:latest npm run dev'

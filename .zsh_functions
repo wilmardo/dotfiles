@@ -201,7 +201,7 @@ base64e() {
      # display usage if no parameters given
      echo "Usage: base64e <string to encode>"
   else
-    echo "$1" | base64
+    echo -n "$1" | base64
   fi
 }
 
