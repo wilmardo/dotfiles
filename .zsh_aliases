@@ -100,7 +100,6 @@ alias av='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basenam
 # --net=host is for localhost docker access
 alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 molecule'
 
-
 # Sysdig
 alias sysdig='docker run -it --privileged -v /var/run/docker.sock:/host/var/run/docker.sock -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro sysdig/sysdig'
 
