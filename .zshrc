@@ -9,7 +9,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-export DEFAULT_USER="$(whoami)"
 
 # Move history to non zsh_ prefix for easier gitignore
 HISTFILE="$HOME/.zhistory"
@@ -45,6 +44,10 @@ fi
 if [ -f ${HOME}/.zsh_aliases ]; then
   source ${HOME}/.zsh_aliases
 fi
+
+
+# remove username@hostname prefix from prompt
+prompt_context() {}
 
 # Start tmux
 # Source: https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
