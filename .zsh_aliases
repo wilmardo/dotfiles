@@ -134,8 +134,8 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:1.15.3'
-alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:1.15.3'
+alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:1.16.2'
+alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:1.16.2'
 
 # Webdev tools
 alias php-cli='docker-compose run --rm --user $(id -u):$(id -g) php-cli'
