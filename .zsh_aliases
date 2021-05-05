@@ -48,7 +48,7 @@ alias gs='git status'
 alias ga='git add'
 alias gf='git fetch'
 alias gpl='git pull --rebase'
-alias gp='git push'
+alias gp='git push '
 alias gpmr='git push -o merge_request.create -o merge_request.remove_source_branch'
 alias gpmra='git push -o merge_request.create -o merge_request.remove_source_branch -o merge_request.merge_when_pipeline_succeeds'
 alias gpf='git push --force'
@@ -100,9 +100,6 @@ alias av='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basenam
 # --net=host is for localhost docker access
 alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 molecule'
 
-# Sysdig
-alias sysdig='docker run -it --privileged -v /var/run/docker.sock:/host/var/run/docker.sock -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro sysdig/sysdig'
-
 # Tmux
 alias t='tmux'
 alias tat='tmux a -t'
@@ -141,7 +138,10 @@ alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:1.15.3'
 alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:1.15.3'
 
 # Webdev tools
-alias composer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
+alias php-cli='docker-compose run --rm --user $(id -u):$(id -g) php-cli'
+alias composer='docker-compose run --rm --user $(id -u):$(id -g) php-cli composer'
+alias scomposer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="1024m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
+alias php='docker-compose run --rm --user $(id -u):$(id -g) php-cli php'
+alias sphp='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:latest'
 alias npm='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest'
-alias php='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:7.4.7'
 alias nuxt='docker run -it -p 3000:3000 --env HOST=0.0.0.0 --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges --name nuxt eu.gcr.io/intermax-group-262516/tools/npm:latest npm run dev'
