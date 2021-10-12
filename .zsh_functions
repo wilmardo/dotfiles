@@ -251,3 +251,15 @@ get_extract_cmd() {
   *) echo "" ;;
   esac
 }
+
+# Ansible wrapper for the container parameters and multiline
+ansible_docker_wrapper() {
+  docker run -it \
+    --user "$(id -u)":"$(id -g)" \
+    --net=host \
+    --volume "$PWD":/$(basename ~+) -w /$(basename ~+) \
+    --volume "$HOME/.ssh/id_rsa":/home/user/.ssh/id_rsa \
+    --volume "$HOME/.kube/config":/home/user/.kube/config \
+    -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule \
+    lansible/ansible:2.11 "$@"
+}

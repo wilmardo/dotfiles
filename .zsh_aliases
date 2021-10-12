@@ -94,11 +94,14 @@ alias dcd='docker-compose down'
 alias dcp='docker-compose pull'
 
 # Ansible
-alias a='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) --volume "$HOME/.ssh/id_rsa":/home/user/.ssh/id_rsa -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible'
-alias ap='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) --volume "$HOME/.ssh/id_rsa":/home/user/.ssh/id_rsa -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible-playbook'
-alias av='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 ansible-vault'
-# --net=host is for localhost docker access
-alias mol='docker run -it --user "$(id -u)":"$(id -g)" --volume "$PWD":/$(basename ~+) -w /$(basename ~+) -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule --net=host lansible/ansible:2.10 molecule'
+alias ansible='ansible_docker_wrapper ansible'
+alias a='ansible'
+alias ansible-playbook='ansible_docker_wrapper ansible-playbook'
+alias ap='ansible-playbook'
+alias ansible-vault='ansible_docker_wrapper ansible-vault'
+alias av='ansible-vault'
+alias molecule='ansible_docker_wrapper molecule'
+alias mol='molecule'
 
 # Tmux
 alias t='tmux'
@@ -134,8 +137,8 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:1.16.2'
-alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:1.16.2'
+alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:beta'
+alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:2021.8.2'
 
 # Webdev tools
 alias php-cli='docker-compose run --rm --user $(id -u):$(id -g) php-cli'
