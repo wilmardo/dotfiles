@@ -30,10 +30,6 @@ source $ZSH/oh-my-zsh.sh
 if [ -f ${HOME}/.zsh_env_vars ]; then
   source ${HOME}/.zsh_env_vars
 fi
-# Import WSL overrides
-if uname -r | grep -i -q Microsoft; then
-  source ${HOME}/.zsh_wsl
-fi
 
 # Import functions
 if [ -f ${HOME}/.zsh_functions ]; then
@@ -45,6 +41,15 @@ if [ -f ${HOME}/.zsh_aliases ]; then
   source ${HOME}/.zsh_aliases
 fi
 
+# Import WSL overrides
+if uname -r | grep -i -q Microsoft; then
+  source ${HOME}/.zsh_wsl
+fi
+
+# Import OSX overrides
+if uname | grep -i -q Darwin; then
+  source ${HOME}/.zsh_osx
+fi
 
 # remove username@hostname prefix from prompt
 prompt_context() {}

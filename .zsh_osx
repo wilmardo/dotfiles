@@ -1,0 +1,18 @@
+# OSX clipboard integration (brew install reattach-to-user-namespace)
+export CLIPBOARD="reattach-to-user-namespace pbcopy"
+
+# Make tilde key next to one
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' > /dev/null 2>&1
+# back to normal
+# hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000035},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000064}]}'
+
+# Disable command +D in terminal
+# https://apple.stackexchange.com/questions/254222/how-do-i-disable-cmd-d-in-terminal
+defaults write com.apple.Terminal NSUserKeyEquivalents '{"Split Pane" = "@~^$d";}'
+
+# override update alias to use brew
+alias update='brew update && brew upgrade'
+
+# Fix to get password prompt for GPG key signing
+# https://stackoverflow.com/a/41054093
+export GPG_TTY=$(tty)
