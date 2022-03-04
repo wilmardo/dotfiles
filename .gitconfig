@@ -1,7 +1,10 @@
 [user]
-	email = w.denouden@intermax.nl
-	name = wilmaro
+	email = w.denouden@guida.nl
+	name = wilmarguida
+	signingkey = w.denouden@guida.nl
 [commit]
 	template = ~/.gitmessage
 [core]
 	excludesfile = ~/.global-gitignore
+[gpg]
+	program = gpg
