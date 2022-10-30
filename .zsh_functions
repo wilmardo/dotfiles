@@ -261,5 +261,5 @@ ansible_docker_wrapper() {
     --volume "$HOME/.ssh/id_rsa":/home/user/.ssh/id_rsa \
     --volume "$HOME/.kube/config":/home/user/.kube/config \
     -e MOLECULE_EPHEMERAL_DIRECTORY=/$(basename ~+)/molecule/default/.molecule \
-    lansible/ansible:2.11 "$@"
+    lansible/ansible:2.13 "$@"
 }
