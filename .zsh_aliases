@@ -62,7 +62,7 @@ alias gl='git log'
 alias gfixfilemode='sed -i "s/filemode = true/filemode = false/g" .git/config'
 
 # Python venv
-alias mkvenv='python3.8 -m venv venv && source venv/bin/activate'
+alias mkvenv='python3 -m venv venv && source venv/bin/activate'
 alias svenv='source venv/bin/activate'
 
 # VSCode
@@ -88,10 +88,10 @@ alias dk='docker kill'
 alias dka='docker stop $(docker ps -a -q)'
 
 # Docker compose
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-alias dcd='docker-compose down'
-alias dcp='docker-compose pull'
+alias dc='docker compose'
+alias dcu='docker compose up'
+alias dcd='docker compose down'
+alias dcp='docker compose pull'
 
 # Ansible
 alias ansible='ansible_docker_wrapper ansible'
@@ -137,8 +137,10 @@ alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 alias restart='sudo systemctl restart'
 
 # Esphome
-alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:beta'
-alias esphomeu='docker run --rm -v $(pwd):/config --device=/dev/ttyUSB0 -it esphome/esphome:2021.8.2'
+alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:latest'
+alias esphomeu='docker run --rm -v $(pwd):/config --device=$(ls /dev/ttyUSB*) -it esphome/esphome:latest'
+alias esphomeuu='esphomeu run --device $(ls /dev/ttyUSB*)'
+
 
 # Webdev tools
 alias php-cli='docker-compose run --rm --user $(id -u):$(id -g) php-cli'
@@ -146,5 +148,5 @@ alias composer='docker-compose run --rm --user $(id -u):$(id -g) php-cli compose
 alias scomposer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="1024m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
 alias php='docker-compose run --rm --user $(id -u):$(id -g) php-cli php'
 alias sphp='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:latest'
-alias npm='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/npm:latest'
-alias nuxt='docker run -it -p 3000:3000 --env HOST=0.0.0.0 --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges --name nuxt eu.gcr.io/intermax-group-262516/tools/npm:latest npm run dev'
+alias npm='docker run -p 5173:5173 --interactive --tty --init --rm --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --workdir /var/www/html --security-opt=no-new-privileges lansible/nexe:latest npm'
+alias nuxt='docker run -it -p 3000:3000 --env HOST=0.0.0.0 --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges --name nuxt lansible/nexe:latest npm run dev'
