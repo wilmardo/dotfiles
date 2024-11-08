@@ -205,6 +205,18 @@ base64e() {
   fi
 }
 
+fsr() {
+  if [ -z "$1" ]; then
+      # display usage if no parameters given
+      echo "Usage: fsr <resource> <name>"
+  else
+    flux suspend $1 $2
+    flux resume $1 $2
+  fi
+}
+_fsr(){ words="flux suspend ${words[@]:1}"; _flux; }
+compdef _fsr fsr
+
 # Helpers
 # Source: https://stackoverflow.com/a/3879077
 require_clean_work_tree() {

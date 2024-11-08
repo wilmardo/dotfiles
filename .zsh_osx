@@ -2,7 +2,7 @@
 export CLIPBOARD="reattach-to-user-namespace pbcopy"
 
 # Make tilde key next to one
-hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' > /dev/null 2>&1
+# hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' > /dev/null 2>&1
 # back to normal
 # hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000035},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000064}]}'
 
@@ -11,8 +11,12 @@ hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x70
 defaults write com.apple.Terminal NSUserKeyEquivalents '{"Split Pane" = "@~^$d";}'
 
 # override update alias to use brew
-alias update='brew update && brew upgrade'
+alias update='brew update && brew upgrade && softwareupdate -i -a'
 
 # Fix to get password prompt for GPG key signing
 # https://stackoverflow.com/a/41054093
 export GPG_TTY=$(tty)
+
+# add tfswitch download location to PATH, make it the first since tfswitch is dumb and uses the first as default location
+export PATH=$HOME/bin:$HOME/go/bin:${PATH}
+

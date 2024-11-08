@@ -14,6 +14,9 @@ alias szsh='source ~/.zshrc'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# Azure
+alias azas='az account set --subscription "$(az account list --query "[].name" --output tsv | fzf)"'
+
 # Kubectl
 alias k='kubectl'
 alias ka='kubectl apply'
@@ -35,6 +38,16 @@ alias ke='kubectl exec -it -n'
 alias kcl='kubectl config get-contexts -o name'
 alias kcu='kubectl config use-context'
 
+# Flux
+alias f='flux'
+alias fs='flux suspend'
+alias fr='flux resume'
+alias frec='flux reconcile'
+alias fsrall='fs hr --all && fr hr --all'
+
+# Sealed secrets
+alias kseal='kubeseal --controller-name=sealed-secrets --controller-namespace=guida-sealed-secrets --format=yaml  | yq "del(.spec.template) | del(.metadata.creationTimestamp) | (.spec.encryptedData | key) head_comment=\"# yamllint disable rule:line-length\"" '
+
 # Kind
 alias kck='export KUBECONFIG=$(kind get kubeconfig-path)'
 
@@ -49,12 +62,12 @@ alias ga='git add'
 alias gf='git fetch'
 alias gpl='git pull --rebase'
 alias gp='git push '
-alias gpmr='git push -o merge_request.create -o merge_request.remove_source_branch'
+alias gpmr='git push -o merge_request.create -o merge_request.remove_source_branch -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpmra='git push -o merge_request.create -o merge_request.remove_source_branch -o merge_request.merge_when_pipeline_succeeds'
 alias gpf='git push --force'
 alias gst='git stash'
 alias gstp='git stash pop'
-alias gco='git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo''
+alias gco='git config user.email 'info@wilmardenouden.nl' && git config user.name 'wilmardo' && git config user.signingkey 'info@wilmardenouden.nl''
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gr='git rebase'
@@ -78,9 +91,9 @@ alias dpl='docker pull'
 alias dph='docker push'
 alias dps='docker ps'
 alias dpsa='docker ps -a -n'
-alias dr='docker run -it'
-alias drs='docker run -it --cap-add SYS_PTRACE --user root --entrypoint /bin/sh'
-alias drv='docker run -it -v "$PWD":"$PWD" -w $PWD'
+alias dr='docker run --rm -it'
+alias drs='dr --cap-add SYS_PTRACE --user root --entrypoint /bin/sh'
+alias drv='dr --volume "$PWD":"$PWD" --workdir "$PWD"'
 alias de='docker exec -it'
 alias db='docker build'
 alias dl='docker logs'
@@ -119,16 +132,17 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias mkdir='mkdir -pv'
-alias myip='curl http://ipecho.net/plain; echo'
+alias myip='curl https://ifconfig.me'
 alias 2Development='cd ${HOME}/Development'
 alias 2dev='cd ${HOME}/Development'
+alias 2cus='cd ${HOME}/Development/Guida/customers'
 alias rmd='rm -rf'
 alias rmdit='rm -rf'
 alias hg='history | grep'
-alias watch='watch '
+alias watch='watch -n1 '
 
 # Convert
-alias yamltojson='python -c "import json, sys, yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)"'
+alias yamltojson='python3 -c "import json, sys, yaml ; y=yaml.safe_load(sys.stdin.read()) ; json.dump(y, sys.stdout)"'
 
 # Ubuntu update
 alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
@@ -139,14 +153,29 @@ alias restart='sudo systemctl restart'
 # Esphome
 alias esphome='docker run --rm -v $(pwd):/config -it esphome/esphome:latest'
 alias esphomeu='docker run --rm -v $(pwd):/config --device=$(ls /dev/ttyUSB*) -it esphome/esphome:latest'
-alias esphomeuu='esphomeu run --device $(ls /dev/ttyUSB*)'
-
+alias esphomeupd='docker pull esphome/esphome:latest'
 
 # Webdev tools
-alias php-cli='docker-compose run --rm --user $(id -u):$(id -g) php-cli'
-alias composer='docker-compose run --rm --user $(id -u):$(id -g) php-cli composer'
-alias scomposer='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="1024m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/tools/composer:latest'
-alias php='docker-compose run --rm --user $(id -u):$(id -g) php-cli php'
-alias sphp='docker run --interactive --tty --init --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges eu.gcr.io/intermax-group-262516/base/php:latest'
+alias composer='
+  docker run --interactive --tty --rm --read-only --cap-drop=ALL --shm-size="1024m" --user "$(id -u)":"$(id -g)" \
+    --security-opt=no-new-privileges \
+    --volume "$PWD":/app \
+    --env COMPOSER_HOME="/dev/shm" \
+    --env TMPDIR="/dev/shm" \
+    composer:latest'
 alias npm='docker run -p 5173:5173 --interactive --tty --init --rm --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --workdir /var/www/html --security-opt=no-new-privileges lansible/nexe:latest npm'
-alias nuxt='docker run -it -p 3000:3000 --env HOST=0.0.0.0 --rm --read-only --cap-drop=ALL --shm-size="512m" --user "$(id -u)":"$(id -g)" --volume "$PWD":/var/www/html --security-opt=no-new-privileges --name nuxt lansible/nexe:latest npm run dev'
+
+# Kubernetes
+alias helm-docs="drv -u $(id -u) jnorwood/helm-docs:latest"
+alias yamllint="drv cytopia/yamllint:latest --config-data '{extends: default, rules: {line-length: {max: 120}, indentation: {spaces: 2}}}' --strict"
+alias shellcheck="drv koalaman/shellcheck-alpine:stable sh -c 'find . -type f -name \"*.sh\" | xargs shellcheck --check-sourced'"
+alias kubeconform="drv ghcr.io/yannh/kubeconform:latest-alpine"
+
+# Terraform
+alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+alias tff="terraform fmt"
+alias tflint="drv ghcr.io/terraform-linters/tflint"
+alias tfsec="drv aquasec/tfsec-scratch"

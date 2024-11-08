@@ -20,7 +20,18 @@ HISTFILE="$HOME/.zhistory"
 # Add wisely, as too many plugins slow down shell startup.
 
 # Setup velero: mkdir -p ~/.oh-my-zsh/custom/plugins/velero && velero completion zsh > ~/.oh-my-zsh/custom/plugins/velero/velero.plugin.zsh
-plugins=(git kubectl helm velero)
+# kube-ps1: brew install kube-ps1
+plugins=(
+  git
+  kubectl
+  kube-ps1
+  helm
+  fluxcd
+  velero
+)
+
+source $HOME/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+bindkey '^I' fzf_completion
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,9 +64,21 @@ fi
 
 # remove username@hostname prefix from prompt
 prompt_context() {}
+# kube-ps1 clustername
+RPROMPT='$(kube_ps1)'
+
+# Setup global gitignore
+git config --global core.excludesfile '~/.global-gitignore'
+
+# Unlimited history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+setopt SHARE_HISTORY
 
 # Start tmux
 # Source: https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ] && [ ! "$TERM_PROGRAM" = "vscode" ]; then
+  exec tmux new-session -A -s main
 fi
+
+source /Users/wilmardo/.docker/init-zsh.sh || true # Added by Docker Desktop

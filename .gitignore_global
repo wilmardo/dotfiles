@@ -1,5 +1,8 @@
 # Used for all git project
 # init like this git config --global core.excludesfile '~/.global-gitignore'
 
+# Ignore osx system files
+.DS_Store
+
 # Ignore Python virtualenv
 venv/

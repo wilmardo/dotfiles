@@ -4,9 +4,12 @@
 	signingkey = w.denouden@guida.nl
 [commit]
 	template = ~/.gitmessage
+	gpgsign = true
 [core]
 	excludesfile = ~/.global-gitignore
 [gpg]
 	program = gpg
+[init]
+	defaultBranch = main
 [safe]
 	directory = *
