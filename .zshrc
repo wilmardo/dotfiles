@@ -7,8 +7,12 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
 
-# Move history to non zsh_ prefix for easier gitignore
+# Move history to non zsh_ prefix for easier gitignore and set unlimited size:
+# https://unix.stackexchange.com/a/273929
 HISTFILE="$HOME/.zhistory"
+export HISTSIZE=999999999
+export SAVEHIST=$HISTSIZE
+setopt SHARE_HISTORY
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -66,11 +70,6 @@ RPROMPT='$(kube_ps1)'
 
 # Setup global gitignore
 git config --global core.excludesfile '~/.global-gitignore'
-
-# Unlimited history
-HISTSIZE=999999999
-SAVEHIST=$HISTSIZE
-setopt SHARE_HISTORY
 
 # Start tmux
 # Source: https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
