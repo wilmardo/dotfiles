@@ -136,28 +136,28 @@ install_bin() {
     # Do all this in /tmp
     pushd /tmp > /dev/null || echo "No /tmp"
     # Download archive
-    curl -LO "${1}"
+    curl -sLO "${1}"
 
     # Check if artifact is archive or binary direct
     if [[ $artifact != *"."* ]]; then
       # Direct binary
       echo "Binary directly downloaded"
-      bin_path=${artifact}
+      bin_path="${artifact}"
     else
       # Extract archive
       echo "Extracting archive ${artifact}"
-      archive_files=$(eval "${cmd} ${artifact}")
+      # Find needed binary path, regex matches on then end of the string so helm/helm matches but helm/README.md does not
+      # make sure to redirect stderr as well, tar on macos prints there
+      bin_path=$(eval ${cmd} "${artifact}" 2>&1 | grep -E "${2}$")
       # Remove archive
       echo "Removing archive ${artifact}"
       rm -f "${artifact}"
-      # Find needed binary path, regex matches on last path so helm/helm matches but helm/README.md does not
-      bin_path=$(echo $archive_files | grep -P ".*${2}$")
     fi
 
     # Make sure it is executable
-    chmod +x "${bin_path}"
+    chmod +x ${bin_path#"x "}
     # Move to location
-    eval "sudo mv ${bin_path} /usr/local/bin/${2}"
+    eval "mv ${bin_path#"x "} $HOME/bin/${2}"
 
     # Return to dir to no change parent shell to /tmp
     popd > /dev/null
@@ -170,10 +170,9 @@ uninstall_bin() {
     # display usage if no parameters given
     echo "Usage: uninstall_bin <binary>"
   else
-    sudo rm /usr/local/bin/${1}
+    rm "$HOME/bin/${1}"
   fi
 }
-
 
 ## Remove sshkey from sshkey file
 sshkey_remove() {

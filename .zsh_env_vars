@@ -1,3 +1,6 @@
+# PATH, make sure to set the $HOME/bin in front since tfswitch to uses the first one
+export PATH="$HOME/bin:$HOME/go/bin:/usr/local/go/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 # Ansible settings
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_STDOUT_CALLBACK=yaml

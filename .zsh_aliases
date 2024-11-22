@@ -36,7 +36,6 @@ alias kdel='kubectl delete -n'
 alias kdelf='kubectl delete -f'
 alias ke='kubectl exec -it -n'
 alias kcl='kubectl config get-contexts -o name'
-alias kcu='kubectl config use-context'
 
 # Flux
 alias f='flux'

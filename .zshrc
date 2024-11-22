@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-export PATH="/usr/local/go/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

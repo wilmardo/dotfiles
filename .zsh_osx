@@ -16,7 +16,3 @@ alias update='brew update && brew upgrade && softwareupdate -i -a'
 # Fix to get password prompt for GPG key signing
 # https://stackoverflow.com/a/41054093
 export GPG_TTY=$(tty)
-
-# add tfswitch download location to PATH, make it the first since tfswitch is dumb and uses the first as default location
-export PATH=$HOME/bin:$HOME/go/bin:${PATH}
-
